@@ -1,0 +1,18 @@
+---
+system:
+  bin:  bin
+  data: data
+  tools:
+    - name: esphome
+      environment:
+        VIRTUAL_ENV: "../esphome/venv"
+        PATH: "$VIRTUAL_ENV/bin"
+    - name: esptool
+  devices: devices
+
+devices:
+  - name: demo
+    tasks:
+      - name: query
+        task: esp-status.py
+        

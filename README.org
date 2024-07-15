@@ -1,0 +1,52 @@
+* Production Assistant
+
+--- Cool Logo Goes Here ---
+
+** Contents :TOC:
+- [[#production-assistant][Production Assistant]]
+  - [[#introduction][Introduction]]
+  - [[#installation][Installation]]
+  - [[#running-manually][Running Manually]]
+  - [[#combined-tasks-status-programming-testing][Combined Tasks (Status, Programming, Testing)]]
+  - [[#nodered-integration][NodeRED Integration]]
+
+** Introduction
+Software tools for use in production of embedded products
+
+The aim of this repository is to create an easily deployable set of tools to
+support the engineering and (almost) mass production of embedded devices.
+
+The initial target is for ESP32-S3 based boards, installed via esphome/esptool.
+
+** Installation
+Clone this repository
+
+*(Work-in-progress)* Edit 'config.yaml' to reflect the environment, tools, scripts
+and processes that you want to use.
+
+** Running Manually
+Configure the environment. 
+
+#+begin_src shell
+  VIRTUAL_ENV="`pwd`/../esphome/venv"
+  export PATH="$VIRTUAL_ENV/bin:$PATH"
+  export PATH="bin:$PATH"
+#+end_src
+
+Connect a device, check status and record details.
+#+begin_src shell
+  esp-status.py
+#+end_src
+
+This will query the attached device and store some details in the 'data'
+directory (and create it if required.)
+
+** Combined Tasks (Status, Programming, Testing)
+*(Work-in-progress)*
+
+** NodeRED Integration
+*(Work-in-progress)*
+
+Separate git submodule: production-assistant-nodered
+
+Drive Production Assistant via a web based NodeRED GUI.
