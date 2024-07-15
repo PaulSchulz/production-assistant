@@ -9,6 +9,8 @@
   - [[#running-manually][Running Manually]]
   - [[#combined-tasks-status-programming-testing][Combined Tasks (Status, Programming, Testing)]]
   - [[#nodered-integration][NodeRED Integration]]
+  - [[#mqtt-integration][MQTT Integration]]
+  - [[#design][Design]]
 
 ** Introduction
 Software tools for use in production of embedded products
@@ -18,14 +20,37 @@ support the engineering and (almost) mass production of embedded devices.
 
 The initial target is for ESP32-S3 based boards, installed via esphome/esptool.
 
+*Note:* This tool was developed on Ubuntu 24.04. It is expected to work on Debian
+based systems (eg. Raspberry Pi OS) but you mileage may vary.
+
 ** Installation
 Clone this repository
 
 *(Work-in-progress)* Edit 'config.yaml' to reflect the environment, tools, scripts
 and processes that you want to use.
 
+*** Dependency: ESPHome
+ESPHome needs to be installed and available. (It provides esptool.py)
+
+To install, clone with:
+#+begin_src shell
+  git clone https://github.com/esphome/esphome.git
+  cd esphome
+  ./scripts/setup
+#+end_src
+
+Be aware that this process can take some time and will require additional swap
+space to be configured if installing on a RaspberryPi or other device with less
+than 4G of RAM.
+
+*Note:* It may be possible to install esphome with the local package manager if
+you are unable to install from source.
+
 ** Running Manually
-Configure the environment. 
+Configure the environment. These instructions assume that you have installed
+'Production Assistant' in a directory adjacent to 'ESPHome'. (Running 'source
+./venv/bin/activate' in the ESPHome directory does the same thing as the
+following.)
 
 #+begin_src shell
   VIRTUAL_ENV="`pwd`/../esphome/venv"
@@ -50,3 +75,19 @@ directory (and create it if required.)
 Separate git submodule: production-assistant-nodered
 
 Drive Production Assistant via a web based NodeRED GUI.
+
+** MQTT Integration
+*(Work-in-progress)*
+
+** Design
+The aim is to have a collection of python scripts in 'bin' which can be run
+individually to perform specific tasks as required. (eg. esp-status.py)
+
+These tasks can be called and combined in NodeRED via a web interface, or
+scripted together in other ways.
+
+The top level 'config.yaml' file can define all of the task required for a
+particular device.
+
+
+
