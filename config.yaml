@@ -1,13 +1,13 @@
 ---
 system:
   bin:  bin
-  data: data
+  data: ../production-assistant-data
   tools:
     - name: esphome
       environment:
         VIRTUAL_ENV: "../esphome/venv"
         PATH: "$VIRTUAL_ENV/bin"
-    - name: esptool
+    - name: esptool.py
   devices: devices
 
 devices:
