@@ -1,7 +1,7 @@
 ---
 system:
   bin:  bin
-  data: ../production-assistant-data
+  data: data
   tools:
     - name: esphome
       environment:
