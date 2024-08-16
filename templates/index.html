@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <!--
+         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+         -->
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />")
+</head>
+<body>
+  <p><a href=".">[Home]</a> <a href="http://peter-pi400-desktop.local:6052">[ESPhome]</a></p>
+  <hl>
+
+  <h1>{{ title }}</h1>
+
+
+    <p>{{ content }}</p>
+
+    <!-- Button to trigger Python script -->
+    <form action="/esp-status" method="post">
+        <button type="submit">Get ESP Status</button>
+    </form>
+
+    <!-- Display the result of the script -->
+    {% if result %}
+        <h2>Result</h2>
+        <p>
+          <pre>
+{{ result }}
+          </pre>
+        </p>
+    {% endif %}
+
+</body>
+</html>

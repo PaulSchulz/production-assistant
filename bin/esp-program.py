@@ -100,7 +100,7 @@ print()
 # Save Data
 
 datadir = "data"
-devicedir = datadir+"/units/"+data['id']
+devicedir = datadir+"/"+data['id']
 
 # Example usage:
 create_directory_if_not_exists(datadir)
@@ -116,3 +116,7 @@ with open(datafile, 'w') as file:
     file.write(yaml_data)
 
     print("YAML exported successfully.")
+
+##############################################################################
+# Obtain data from ESP board
+bash_command = "esphome install"
