@@ -1,18 +1,15 @@
 ---
+http:
+  host: "0.0.0.0"  
+  port: 8080
 system:
   bin:  bin
   data: data
-  tools:
-    - name: esphome
-      environment:
-        VIRTUAL_ENV: "../esphome/venv"
-        PATH: "$VIRTUAL_ENV/bin"
-    - name: esptool
-  devices: devices
+  repos:   data/repos
+  devices: data/devices
+  units:   data/units
 
-devices:
-  - name: demo
-    tasks:
-      - name: query
-        task: esp-status.py
+commands:
+  - name: status
+    command: bin/esp-status.py 
         

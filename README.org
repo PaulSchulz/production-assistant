@@ -29,38 +29,32 @@ Clone this repository
 *(Work-in-progress)* Edit 'config.yaml' to reflect the environment, tools, scripts
 and processes that you want to use.
 
-*** Dependency: ESPHome
-ESPHome needs to be installed and available. (It provides esptool.py)
-
-To install, clone with:
+*** Setup python virtual environmental (venv)
+Create 'venv' environemt.
 #+begin_src shell
-  git clone https://github.com/esphome/esphome.git
-  cd esphome
-  ./scripts/setup
+python -m venv venv
+
+. venv/bin/activate
 #+end_src
 
-Be aware that this process can take some time and will require additional swap
-space to be configured if installing on a RaspberryPi or other device with less
-than 4G of RAM.
+The 'activate' step needs to be run each time, to set up the environment.
 
-*Note:* It may be possible to install esphome with the local package manager if
-you are unable to install from source.
-
-** Running Manually
-Configure the environment. These instructions assume that you have installed
-'Production Assistant' in a directory adjacent to 'ESPHome'. (Running 'source
-./venv/bin/activate' in the ESPHome directory does the same thing as the
-following.)
+*** Dependency: ESPHome
+ESPHome needs to be installed and available. (It provides esptool)
 
 #+begin_src shell
-  VIRTUAL_ENV="`pwd`/../esphome/venv"
-  export PATH="$VIRTUAL_ENV/bin:$PATH"
-  export PATH="bin:$PATH"
+pip install esphome
+#+end_src
+
+** Running Manually
+Configure the environment
+#+begin_src shell
+. venv/bin/activate  
 #+end_src
 
 Connect a device, check status and record details.
 #+begin_src shell
-  esp-status.py
+  ./bin/esp-status.py
 #+end_src
 
 This will query the attached device and store some details in the 'data'
