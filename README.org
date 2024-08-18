@@ -6,7 +6,9 @@
 - [[#production-assistant][Production Assistant]]
   - [[#introduction][Introduction]]
   - [[#installation][Installation]]
-  - [[#running-manually][Running Manually]]
+  - [[#data][Data]]
+  - [[#running][Running]]
+  - [[#operation][Operation]]
   - [[#combined-tasks-status-programming-testing][Combined Tasks (Status, Programming, Testing)]]
   - [[#nodered-integration][NodeRED Integration]]
   - [[#mqtt-integration][MQTT Integration]]
@@ -30,7 +32,9 @@ Clone this repository
 and processes that you want to use.
 
 *** Setup python virtual environmental (venv)
-Create 'venv' environemt.
+Requires python3
+
+Create 'venv' environment.
 #+begin_src shell
 python -m venv venv
 
@@ -46,7 +50,39 @@ ESPHome needs to be installed and available. (It provides esptool)
 pip install esphome
 #+end_src
 
-** Running Manually
+** Data
+By default, data is stored in the 'data' directory in the location where the
+software has been installed. 
+
+If it doesn't exist, a data directory will be created to record the software
+operation.
+
+It is recommended that the runtime data is kept separate from the application
+software by either:
+- pointing to a new data location with a symbolic link (eg. ln -s new-dir data); or
+- changing the config to point to a different location. 
+
+** Running
+To run the development web server (currently the only option) use-case
+
+#+begin_src shell
+  . venv/bin/activate
+  python app.py
+#+end_src
+
+A script has been created to do this with:
+#+begin_src shell
+  ./app-run
+#+end_src
+
+The server can be started by the user when the system is rebooted by adding
+something like the following in your crontab file. (eg. run 'crontab -e')
+
+#+begin_src crontab
+  reboot: /usr/bin/screen /home/paul/Documents/git/production-assistant/run-app
+#+end_src
+
+*** Manually
 Configure the environment
 #+begin_src shell
 . venv/bin/activate  
@@ -59,6 +95,13 @@ Connect a device, check status and record details.
 
 This will query the attached device and store some details in the 'data'
 directory (and create it if required.)
+
+** Operation
+Access the app by going to the webpage. This may be different if you have
+changed the default configuration.
+#+begin_quote
+http://localhost:8080
+#+end_quote
 
 ** Combined Tasks (Status, Programming, Testing)
 *(Work-in-progress)*
