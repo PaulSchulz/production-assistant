@@ -1,16 +1,19 @@
 from flask import Flask, render_template
 import subprocess
+import socket # Used to get hostname
 
 app = Flask(__name__)
 
 main_title = "Production Assistant"
 main_content = "Device Details"
+hostname = socket.gethostname()
+
 
 @app.route('/')
 def home():
     title = main_title
     content = main_content
-    return render_template('index.html', title=title, content=content)
+    return render_template('index.html', hostname=hostname, title=title, content=content)
 
 @app.route('/esp-status', methods=['POST'])
 def run_script():
@@ -19,6 +22,7 @@ def run_script():
 
     # Render the template with the result
     return render_template('index.html',
+                           hostname=hostname,
                            title=main_title,
                            content="Details of ESP Device",
                            result=result)
@@ -36,4 +40,4 @@ def run_script():
     return output
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8088, debug=True)
