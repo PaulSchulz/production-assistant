@@ -1,20 +1,18 @@
-* Production Assistant
+#+TITLE: Production Assistant
 
 --- Cool Logo Goes Here ---
 
-** Contents :TOC:
-- [[#production-assistant][Production Assistant]]
-  - [[#introduction][Introduction]]
+* Contents                                                                 :TOC:
+- [[#introduction][Introduction]]
   - [[#installation][Installation]]
   - [[#data][Data]]
   - [[#running][Running]]
-  - [[#operation][Operation]]
-  - [[#combined-tasks-status-programming-testing][Combined Tasks (Status, Programming, Testing)]]
-  - [[#nodered-integration][NodeRED Integration]]
-  - [[#mqtt-integration][MQTT Integration]]
-  - [[#design][Design]]
+- [[#operation][Operation]]
+  - [[#tasks-status-programming-testing][Tasks (Status, Programming, Testing)]]
+  - [[#integrations][Integrations]]
+- [[#design][Design]]
 
-** Introduction
+* Introduction
 
 [[file:doc/images/screenshot.png]]
 
@@ -85,7 +83,7 @@ something like the following in your crontab file. (eg. run 'crontab -e')
   reboot: /usr/bin/screen /home/paul/Documents/git/production-assistant/run-app
 #+end_src
 
-*** Manually
+*** Running Manually (for development)
 Configure the environment
 #+begin_src shell
 . venv/bin/activate  
@@ -99,35 +97,58 @@ Connect a device, check status and record details.
 This will query the attached device and store some details in the 'data'
 directory (and create it if required.)
 
-** Operation
-Access the app by going to the webpage. This may be different if you have
-changed the default configuration.
+* Operation
+Access the app by going to the webpage. (This may be different if you have
+changed the default configuration.)
 #+begin_quote
 http://localhost:8080
 #+end_quote
 
-** Combined Tasks (Status, Programming, Testing)
+** Tasks (Status, Programming, Testing)
 *(Work-in-progress)*
 
-** NodeRED Integration
+** Integrations
+*** ESPhome
+Built in for using esp32 devices.
+
+*** NodeRED 
 *(Work-in-progress)*
 
 Separate git submodule: production-assistant-nodered
 
 Drive Production Assistant via a web based NodeRED GUI.
 
-** MQTT Integration
+*** MQTT
 *(Work-in-progress)*
 
-** Design
-The aim is to have a collection of python scripts in 'bin' which can be run
+* Design
+The 'app' is driven by a top level pyton program (app.py) which uses
+other python scripts and libraries to function.
+
+The main collection of python scripts live in the 'bin' which can be run
 individually to perform specific tasks as required. (eg. esp-status.py)
 
-These tasks can be called and combined in NodeRED via a web interface, or
+These scripts can be called and combined in NodeRED via a web interface, or
 scripted together in other ways.
 
-The top level 'config.yaml' file can define all of the task required for a
-particular device.
+The top level 'config.yaml' file is used to define all system configuration parameters.
 
+Within the 'data' directory:
 
+- repos/ :: Git repositories containing the sources required for making devices.
 
+- devices/ :: Definition files for each device being created including:
+  - which repo to use
+  - instructions on how to build the software
+  - how to install the device
+  - the tests and how to run them for the device 
+  - what manufacturing details need to recorded for each unit
+
+- units/ :: Records on the production of each unit. Details stored under a
+  unique id for each unit produced.
+
+  This data is accessible via a unique URL, which could be turned into a QRcode
+  for displaying on packaging.
+
+  
+  

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import 'macros.html' as macros %}
+
+{% block title %}Units{% endblock %}
+
+{% block content %}
+   <p>{{ content }}</p>
+   <h1>Units</h1>
+
+   <!-- Button to trigger Python script -->
+    <form action="/units" method="put">
+      <button type="submit">Refresh</button>
+    </form>
+
+    <!-- Display the result of the script -->
+
+    {% set headers     = data["headers"] %}
+    {% set headers_str = data["headers_str"] %}
+    {% set units       = data["data"] %}
+
+    {{ macros.render_table(headers, headers_str, units) }}
+
+{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

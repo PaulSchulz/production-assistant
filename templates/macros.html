@@ -1,0 +1,21 @@
+{% macro render_table(headers, headers_str, data, table_class='', header_class='', row_class='') %}
+
+<table class="{{ table_class }}" border="1">
+    <thead>
+        <tr class="{{ header_class }}">
+            {% for header in headers %}
+                <th>{{ headers_str[header] }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+            <tr class="{{ row_class }}">
+                {% for header in headers %}
+                    <td>{{ row[header] }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endmacro %}
