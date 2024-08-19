@@ -15,6 +15,9 @@
   - [[#design][Design]]
 
 ** Introduction
+
+[[file:doc/images/screenshot.png]]
+
 Software tools for use in production of embedded products
 
 The aim of this repository is to create an easily deployable set of tools to
