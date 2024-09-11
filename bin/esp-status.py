@@ -6,6 +6,9 @@ import yaml
 import re
 import os
 
+from yamldb import YamlDB    # Configuration and Data DB
+db = YamlDB(filename="data/db.yaml")
+
 verbose = 0
 data_structure = {}
 
@@ -76,25 +79,38 @@ for line in flash_id:
         data['mac'] = match[1]
 
 
-regexp_pattern= r'\:'
-pattern4 = re.compile(regexp_pattern)
-match = pattern4.sub('',data['mac'])
+        regexp_pattern= r'\:'
+        pattern4 = re.compile(regexp_pattern)
+        match = pattern4.sub('',data['mac'])
 
-regexp_pattern= r'^......'
-pattern5 = re.compile(regexp_pattern)
-match = pattern5.sub('',match)
+        regexp_pattern= r'^......'
+        pattern5 = re.compile(regexp_pattern)
+        match = pattern5.sub('',match)
 
-match = match.upper()
-data['id'] =  match
+        match = match.upper()
+        data['id'] =  match
 
-data_structure['chip'] = data
+        data_structure['chip'] = data
+
+data_structure["device"]   = db["device"]
+data_structure["customer"] = db["customer"]
+data_structure["site"]     = db["site"]
+data_structure["comment"]  = db["comment"]
+
 ##############################################################################
 # Report Data
-print("Device")
-print("------")
+print("Device Hardware")
+print("---------------")
 for key in data.keys():
     print("{s:20} {data}".format(s=key, data=data[key]))
-
+print()
+print("Details")
+print("-------")
+print("Device:   {}".format(data_structure["device"]))
+print("Customer: {}".format(data_structure["customer"]))
+print("Site:     {}".format(data_structure["site"]))
+print("Comment :")
+print("{}".format(data_structure["comment"]))
 print()
 ##############################################################################
 # Save Data

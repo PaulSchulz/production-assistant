@@ -1,6 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import subprocess
 import socket # Used to get hostname
+
+from yamldb import YamlDB    # Configuration and Data DB
+
+db = YamlDB(filename="data/db.yaml")
 
 app = Flask(__name__)
 
@@ -8,10 +12,35 @@ main_title = "Production Assistant"
 main_content = "Device Details"
 hostname = socket.gethostname()
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def home():
     title = main_title
-    return render_template('index.html', hostname=hostname, title=title)
+    data = db
+    return render_template('index.html', hostname=hostname, title=title, data=data)
+
+@app.route('/setup', methods=['GET'])
+def setup_get():
+    title = main_title+" (GET)"
+    data = db
+    return render_template('setup.html', hostname=hostname, title=title, data=data)
+
+@app.route('/setup', methods=['POST'])
+def setup_post():
+    title = main_title+" (POST)"
+    db["device"]   = request.form.get("device")
+    db["customer"] = request.form.get("customer")
+    db["site"]     = request.form.get("site")
+    db["comment"]  = request.form.get("comment")
+    db.save()
+    data = db
+    result = "Saved"
+    return render_template('setup.html', hostname=hostname, title=title, data=data, result=result)
+
+@app.route('/programming')
+def programming():
+    title = main_title
+    data = {}
+    return render_template('programming.html', hostname=hostname, title=title, data=data)
 
 @app.route('/repos')
 def repos():
@@ -41,18 +70,18 @@ def about():
 
 @app.route('/esp-status', methods=['POST'])
 def run_script():
-    data = {}
+    data = db
 
     # Run your Python script here
-    result = run_script()
+    result = run_status_script()
     # Render the template with the result
     return render_template('index.html',
                            hostname=hostname,
                            title=main_title,
                            result=result,
-                           data={})
+                           data=data)
 
-def run_script():
+def run_status_script():
     # Run the Bash script and capture the output
     result = subprocess.run(['./bin/esp-status.py'],
                             capture_output=True,

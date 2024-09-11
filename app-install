@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd ${0%/*}
+python -m venv venv
+source venv/bin/activate
+python python -m ensurepip --upgrade
+
+# Install dependancies
+pip install flask
+pip install esphome
+pip install yamldb

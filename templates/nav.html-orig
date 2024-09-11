@@ -1,5 +1,9 @@
 <p>{{ hostname }}: <a href=".">[Overview]</a>
 - <a href="/setup">[Setup]</a>
+- <a href="/program">[Program]</a>
+  <a href="/devices">[Devices]</a>
+  <a href="/units">[Units]</a>
+  <a href="/repos">[Repos]</a>
   <a href="/about">[About]</a>
   -   <a href="http://peter-pi400-desktop.local:6052">[ESPhome]</a></p>
 <hline>

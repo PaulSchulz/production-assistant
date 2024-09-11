@@ -3,25 +3,36 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-   <p>{{ content }}</p>
    <h1>Overview</h1>
 
-   <p>Details of ESP Device</p>
-    <!-- Button to trigger Python script -->
-    <form action="/esp-status" method="post">
-        <button type="submit">Get ESP Status</button>
-    </form>
+  <table>
+    <tr><td>Device</td>   <td>{{ data.device }}</td></tr>
+    <tr><td>Customer</td> <td>{{ data.customer }}</td></tr>
+    <tr><td>Site</td>     <td>{{ data.site }}</td></tr>
+    <tr><td>Comment</td>  <td>{{ data.comment }}</td></tr>
+  </table>
 
-    <!-- Display the result of the script -->
+   <form action="/esp-status" method="POST">
+      <!-- Button to trigger Python script -->
+       <button type="submit">Get and Save ESP Status</button>
+       </form>
+
+   <p>{{ content }}</p>
+
+   <!-- Display the result of the script -->
     {% if result %}
         <h2>Result</h2>
         <p>
+          <small>
           <pre>
 {{ result }}
           </pre>
+          </small>
         </p>
     {% endif %}
+
 {% endblock %}
+
 
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">

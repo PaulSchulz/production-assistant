@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+   <p>{{ content }}</p>
+   <h1>Overview</h1>
+
+   <p>Details of ESP Device</p>
+    <!-- Button to trigger Python script -->
+    <form action="/esp-status" method="post">
+        <button type="submit">Get ESP Status</button>
+    </form>
+
+    <!-- Display the result of the script -->
+    {% if result %}
+        <h2>Result</h2>
+        <p>
+          <pre>
+{{ result }}
+          </pre>
+        </p>
+    {% endif %}
+
+    <h1>Programming</h1>
+    <p>Customer
+<select name="customer" id="customer">
+  <option value="internel">Internal/Testing</option>
+  <option value="solarhart">Solarhart</option>
+</select>
+    </p>
+
+    <p>Device
+    <select name="device" id="device">
+  <option value="sender">Sender</option>
+  <option value="receiver">Receiver</option>
+  <option value="relay">Relay</option>
+    </select>
+
+  <p>Unit: xxxxxx</p>
+
+    {% endblock %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
