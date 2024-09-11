@@ -9,3 +9,4 @@ python python -m ensurepip --upgrade
 pip install flask
 pip install esphome
 pip install yamldb
+pip install cloudmesh-common
